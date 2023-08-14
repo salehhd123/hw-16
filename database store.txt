@@ -1,0 +1,60 @@
+create database store;
+create table countries(
+    code int primary key ,
+    name varchar(20) unique ,
+    continent_name varchar(20) not null
+);
+create table users(
+    id int primary key ,
+    full_name varchar(20) ,
+    email varchar(20) unique ,
+    gender char check ( gender='m' or gender='f'),
+    data_of_birthday varchar(15),
+    create_at datetime,
+    country_code int,
+    foreign key (country_code) references countries(code)
+);
+create table orders(
+    id int primary key ,
+    user_id int ,
+    foreign key (user_id) references users(id),
+    status varchar(6) check ( status='start' or status='finish' ),
+    create_at datetime
+);
+create table products(
+    id int primary key ,
+    name varchar(10) not null ,
+    price int default 0,
+    status varchar(10) check ( status='valid' or status='expire'),
+    create_at datetime
+);
+create table order_products(
+    order_id int,
+    foreign key (order_id) references orders(id),
+    product_id int,
+    foreign key (product_id) references products(id),
+    quantity int default 0
+);
+
+insert into countries values (1,'test','test');
+
+select * from countries;
+
+insert into users values (2,'saleh','gg','m','1999','2022-12-11',1);
+select * from users;
+
+insert into orders values (10,2,'start','2000-11-12');
+select * from orders;
+
+insert into products values (1,'saleh',0,'valid','2000-11-11');
+select * from products;
+
+insert into order_products values (10,1,100);
+
+update countries
+set name ='gg'
+where name='test';
+select * from countries;
+
+delete from products
+where id=1;
