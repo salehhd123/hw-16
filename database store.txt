@@ -56,5 +56,12 @@ set name ='gg'
 where name='test';
 select * from countries;
 
+delete from order_products
+where product_id=1;
+
+select * from order_products;
+
 delete from products
-where id=1;
+where name='saleh';
+
+select * from products;
